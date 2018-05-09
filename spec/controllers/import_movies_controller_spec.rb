@@ -5,6 +5,7 @@ describe ImportMoviesController do
     let(:url) { "https://www.movies.test"}
     it "delegates to the create movie interactor" do
       movie_creator = stub_movie_creator
+      allow(movie_creator).to receive(:successful?).and_return(false)
 
       post :create, params: { url: url }
 
@@ -18,7 +19,7 @@ describe ImportMoviesController do
 
         post :create, params: { url: url }
 
-        expect(controller).to redirect_to(import_movie_path)
+        expect(controller).to redirect_to(import_movies_path)
       end
 
       it "sets success flash" do
@@ -38,12 +39,12 @@ describe ImportMoviesController do
 
         post :create, params: { url: url }
 
-        expect(controller).to redirect_to(import_movie_path)
+        expect(controller).to redirect_to(import_movies_path)
       end
 
       it "sets flash danger" do
         movie_creator = stub_movie_creator
-        allow(movie_creator).to receive(:successful?).and_return(true)
+        allow(movie_creator).to receive(:successful?).and_return(false)
 
         post :create, params: { url: url }
 

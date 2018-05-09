@@ -10,6 +10,10 @@ class MoviesCreator
     create_users
   end
 
+  def number_of_records_created
+    @created
+  end
+
   private
 
   attr_reader :url, :importer
