@@ -1,0 +1,3 @@
+class ImportMoviesController < ApplicationController
+  
+end
