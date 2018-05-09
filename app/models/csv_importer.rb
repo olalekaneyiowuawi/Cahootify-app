@@ -11,7 +11,7 @@ class CsvImporter
 
   def call
     pull_csv_text
-    parse_csv_text
+    process_response
   end
 
   def successful?
@@ -20,26 +20,25 @@ class CsvImporter
 
   private
 
-  attr_reader :url, :csv_text
+  attr_reader :url, :response
 
   def pull_csv_text
     uri = URI(url)
-    response = Net::HTTP.get_response(uri)
-    process_response(response)
+    @response = Net::HTTP.get_response(uri)
   rescue StandardError => e
     handle_error(e) 
   end
 
-  def process_response(response)
+  def process_response
     if response.is_a?(Net::HTTPSuccess)
       @success = true
-      @csv_text = response.body
+      parse_csv_text(response.body)
     else
       @success = false
     end
   end
 
-  def parse_csv_text
+  def parse_csv_text(csv_text)
     CSV.parse(csv_text, headers: true) do |row|
       data = { name: row[0], email: row[1], phone_number: row[2],
                                             website: row[3] }
