@@ -1,6 +1,6 @@
 class ImportMoviesController < ApplicationController
   def create
-    creator = MoviesCreator.new(url: movies_params[:url])
+    creator = PeopleCreator.new(url: movies_params[:url])
     creator.call
     process_movies_creator(creator)
   end

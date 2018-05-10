@@ -1,4 +1,4 @@
-class MoviesCreator
+class PeopleCreator
   delegate :successful?, to: :importer
   def initialize(url: url)
     @url = url

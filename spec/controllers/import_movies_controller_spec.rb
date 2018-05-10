@@ -54,9 +54,9 @@ describe ImportMoviesController do
   end
 
   def stub_movie_creator
-    movie_creator = MoviesCreator.new(url: url)
-    allow(MoviesCreator).to receive(:new).and_return(movie_creator)
-    allow(movie_creator).to receive(:call)
-    movie_creator
+    people_creator = PeopleCreator.new(url: url)
+    allow(PeopleCreator).to receive(:new).and_return(people_creator)
+    allow(people_creator).to receive(:call)
+    people_creator
   end
 end

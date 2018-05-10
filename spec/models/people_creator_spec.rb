@@ -1,12 +1,12 @@
 require "rails_helper"
 
-describe MoviesCreator do
+describe PeopleCreator do
   let(:url) { "http://test.com" }
 
   it { is_expected.to delegate_method(:successful?).to(:importer)}
   describe "#call" do
     it "delegates to ImportCsv to import data" do
-      movie_creator = MoviesCreator.new(url: url)
+      movie_creator = PeopleCreator.new(url: url)
       csv_importer = stub_csv_importer(url: url, success: false)
 
       movie_creator.call
@@ -14,10 +14,10 @@ describe MoviesCreator do
       expect(csv_importer).to have_received(:call)
     end
 
-    it "creates the mobies using the imported data" do
+    it "creates the people using the imported data" do
       data = [{name: "Olalekan", email: "eyiolekan@gmail.com",
                phone_number: "0123456", website: nil}]
-      movie_creator = MoviesCreator.new(url: url)
+      movie_creator = PeopleCreator.new(url: url)
       csv_importer = stub_csv_importer(url: url, success: true)
       allow(csv_importer).to receive(:result).and_return(data)
 
