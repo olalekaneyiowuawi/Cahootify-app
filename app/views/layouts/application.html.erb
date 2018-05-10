@@ -10,6 +10,27 @@
   </head>
 
   <body>
-    <%= yield %>
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Cahootifyapp test App</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <main class="container">
+      <% flash.each do |key, value| %>
+        <div class="flash alert alert-dismissable <%= "alert-#{key}" %>" role="alert">
+          <%= value %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </main>
   </body>
 </html>

@@ -10,11 +10,10 @@ class ImportMoviesController < ApplicationController
   def process_movies_creator(creator)
     if creator.successful?
       flash[:success] = success_message_for(creator)
-      redirect_to import_movies_path
     else
       flash[:danger] = "Couldn't import records, try again"
-      redirect_to import_movies_path
     end
+    redirect_to new_import_movie_path
   end
 
   def movies_params

@@ -1,0 +1,9 @@
+<div class="jumbotron">
+  <h1 class="display-4">Hello, Enter the url to import user details.</h1>
+  
+  <hr class="my-4">
+  <%= form_with url: import_movies_path, method: :post do |form| %>
+    <%= form.text_field :url, input_html: { class: "form-control" } %>
+    <%= form.submit "Import Users", class: "btn btn-success" %>
+  <% end %>
+</div>

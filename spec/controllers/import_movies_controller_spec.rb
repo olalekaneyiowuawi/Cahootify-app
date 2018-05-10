@@ -19,7 +19,7 @@ describe ImportMoviesController do
 
         post :create, params: { url: url }
 
-        expect(controller).to redirect_to(import_movies_path)
+        expect(controller).to redirect_to(new_import_movie_path)
       end
 
       it "sets success flash" do
@@ -39,7 +39,7 @@ describe ImportMoviesController do
 
         post :create, params: { url: url }
 
-        expect(controller).to redirect_to(import_movies_path)
+        expect(controller).to redirect_to(new_import_movie_path)
       end
 
       it "sets flash danger" do
