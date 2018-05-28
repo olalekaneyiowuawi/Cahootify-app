@@ -1,30 +1,30 @@
 require "rails_helper"
 
-describe ImportMoviesController do
+describe ImportCsvsController do
   describe "#create" do
     let(:url) { "https://www.movies.test"}
     it "delegates to the create movie interactor" do
-      movie_creator = stub_movie_creator
-      allow(movie_creator).to receive(:successful?).and_return(false)
+      people_creator = stub_people_creator
+      allow(people_creator).to receive(:successful?).and_return(false)
 
       post :create, params: { url: url }
 
-      expect(movie_creator).to have_received(:call)
+      expect(people_creator).to have_received(:call)
     end
 
     context "when it successfully imports movies" do
       it "redirect to the create page" do
-        movie_creator = stub_movie_creator
-        allow(movie_creator).to receive(:successful?).and_return(true)
+        people_creator = stub_people_creator
+        allow(people_creator).to receive(:successful?).and_return(true)
 
         post :create, params: { url: url }
 
-        expect(controller).to redirect_to(new_import_movie_path)
+        expect(controller).to redirect_to(new_import_csv_path)
       end
 
       it "sets success flash" do
-        movie_creator = stub_movie_creator
-        allow(movie_creator).to receive(:successful?).and_return(true)
+        people_creator = stub_people_creator
+        allow(people_creator).to receive(:successful?).and_return(true)
 
         post :create, params: { url: url }
 
@@ -34,17 +34,17 @@ describe ImportMoviesController do
 
     context "when it doesn't successful import the movies" do
       it "redirect to the create page" do
-        movie_creator = stub_movie_creator
-        allow(movie_creator).to receive(:successful?).and_return(false)
+        people_creator = stub_people_creator
+        allow(people_creator).to receive(:successful?).and_return(false)
 
         post :create, params: { url: url }
 
-        expect(controller).to redirect_to(new_import_movie_path)
+        expect(controller).to redirect_to(new_import_csv_path)
       end
 
       it "sets flash danger" do
-        movie_creator = stub_movie_creator
-        allow(movie_creator).to receive(:successful?).and_return(false)
+        people_creator = stub_people_creator
+        allow(people_creator).to receive(:successful?).and_return(false)
 
         post :create, params: { url: url }
 
@@ -53,7 +53,7 @@ describe ImportMoviesController do
     end
   end
 
-  def stub_movie_creator
+  def stub_people_creator
     people_creator = PeopleCreator.new(url: url)
     allow(PeopleCreator).to receive(:new).and_return(people_creator)
     allow(people_creator).to receive(:call)

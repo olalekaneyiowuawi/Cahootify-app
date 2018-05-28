@@ -1,22 +1,22 @@
-class ImportMoviesController < ApplicationController
+class ImportCsvsController < ApplicationController
   def create
-    creator = PeopleCreator.new(url: movies_params[:url])
+    creator = PeopleCreator.new(url: csv_params[:url])
     creator.call
-    process_movies_creator(creator)
+    process_people_creator(creator)
   end
 
   private
 
-  def process_movies_creator(creator)
+  def process_people_creator(creator)
     if creator.successful?
       flash[:success] = success_message_for(creator)
     else
       flash[:danger] = "Couldn't import records, try again"
     end
-    redirect_to new_import_movie_path
+    redirect_to new_import_csv_path
   end
 
-  def movies_params
+  def csv_params
     params.permit(:url)
   end
 
